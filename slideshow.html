@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PI Vision Slideshow</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <script>
+        const urls = [
+            "https://pi.cetrel.com.br/PIVision/#/Displays/141025/Controle-po%C3%A7os-DAC",
+            "https://pi.cetrel.com.br/PIVision/#/Displays/141016/Painel-Geral-DAC-rev1"
+        ];
+
+        let currentIndex = 0;
+        let slideshowWindow = null;
+
+        function openNext() {
+            const url = urls[currentIndex];
+            currentIndex = (currentIndex + 1) % urls.length;
+
+            // Abre uma janela com o mesmo nome (substitui a anterior)
+            slideshowWindow = window.open(url, "pi_slideshow");
+        }
+
+        // Abre a primeira imediatamente
+        openNext();
+
+        // Troca a cada 100 segundos
+        setInterval(openNext, 100000);
+    </script>
+</body>
+</html>

@@ -3,40 +3,33 @@
 <head>
     <title>PI Vision Slideshow</title>
     <meta charset="UTF-8">
-</head>
-<body>
     <script>
+        // Lista de URLs do slideshow
         const urls = [
-            "https://pi.cetrel.com.br/PIVision/#/Displays/141016/Painel-Geral-DAC-rev1",
-            "https://pi.cetrel.com.br/PIVision/#/Displays/141025/Controle-po%C3%A7os-DAC"
+            "https://pi.cetrel.com.br/PIVision/#/Displays/141025/Controle-po%C3%A7os-DAC",
+            "https://pi.cetrel.com.br/PIVision/#/Displays/141016/Painel-Geral-DAC-rev1"
         ];
 
-        let currentIndex = 0;
-        let slideshowWindow = null;
+        // Obter índice atual do localStorage, ou começar do 0
+        let currentIndex = parseInt(localStorage.getItem("slideshowIndex")) || 0;
 
-        function openNext() {
-            const url = urls[currentIndex];
-            currentIndex = (currentIndex + 1) % urls.length;
+        // Garantir que o índice esteja dentro dos limites
+        if (currentIndex >= urls.length) currentIndex = 0;
 
-            // Abre uma janela com o mesmo nome (substitui a anterior)
-            slideshowWindow = window.open(url, "pi_slideshow");
-        }
+        // Atualizar o índice para a próxima execução
+        const nextIndex = (currentIndex + 1) % urls.length;
+        localStorage.setItem("slideshowIndex", nextIndex.toString());
 
-        // Abre a primeira imediatamente
-        openNext();
+        // Tempo de exibição antes de redirecionar (em milissegundos)
+        const tempoExibicao = 100000; // 100 segundos
 
-        // Troca de slide a cada 100 segundos
-        setInterval(openNext, 100000);
-
-        // Recarrega a página a cada 15 minutos (200000 ms)
+        // Aguarda e redireciona
         setTimeout(() => {
-            location.reload();
-        }, 200000);
+            window.location.href = urls[currentIndex];
+        }, tempoExibicao);
     </script>
-</body>
-</html>
-        // Troca a cada 100 segundos
-        setInterval(openNext, 100000);
-    </script>
+</head>
+<body>
+    <h1 style="text-align:center; margin-top:20%;">Carregando apresentação...</h1>
 </body>
 </html>

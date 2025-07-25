@@ -3,30 +3,36 @@
 <head>
     <title>PI Vision Slideshow</title>
     <meta charset="UTF-8">
+</head>
+<body>
+    <h1 style="text-align:center; margin-top:20%;">Carregando apresentação...</h1>
+
     <script>
         const urls = [
             "https://pi.cetrel.com.br/PIVision/#/Displays/141025/Controle-po%C3%A7os-DAC",
             "https://pi.cetrel.com.br/PIVision/#/Displays/141016/Painel-Geral-DAC-rev1"
         ];
 
-        // Pega o índice da URL (ex: ?i=1)
-        const urlParams = new URLSearchParams(window.location.search);
-        let currentIndex = parseInt(urlParams.get("i")) || 0;
+        // Obter o índice atual pela URL (?i=0, ?i=1, etc.)
+        const params = new URLSearchParams(window.location.search);
+        let i = parseInt(params.get("i")) || 0;
 
-        // Redireciona para a URL atual
-        const tempoExibicao = 100000; // 100 segundos
+        // Garante índice válido
+        if (i >= urls.length) i = 0;
 
+        // Próximo índice para o redirecionamento seguinte
+        const nextIndex = (i + 1) % urls.length;
+
+        // Redirecionar para a tela PI Vision atual depois de leve atraso
         setTimeout(() => {
-            const nextIndex = (currentIndex + 1) % urls.length;
-            // Redireciona de volta para o index com o próximo índice
-            window.location.href = `https://SEU_USUARIO.github.io/SEU_REPOSITORIO/?i=${nextIndex}`;
-        }, tempoExibicao);
+            window.location.href = urls[i];
+        }, 100); // 100 ms para evitar bloqueio imediato
 
-        // Redireciona imediatamente para a tela desejada
-        window.location.replace(urls[currentIndex]);
+        // Programar retorno à página index com o próximo índice
+        setTimeout(() => {
+            const indexUrl = `https://SEU_USUARIO.github.io/SEU_REPOSITORIO/?i=${nextIndex}`;
+            window.location.href = indexUrl;
+        }, 100000); // 100 segundos
     </script>
-</head>
-<body>
-    <h1 style="text-align:center; margin-top:20%;">Carregando...</h1>
 </body>
 </html>

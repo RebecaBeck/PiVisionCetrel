@@ -5,34 +5,38 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <h1 style="text-align:center; margin-top:20%;">Carregando apresentação...</h1>
-
     <script>
         const urls = [
-            "https://pi.cetrel.com.br/PIVision/#/Displays/141025/Controle-po%C3%A7os-DAC",
-            "https://pi.cetrel.com.br/PIVision/#/Displays/141016/Painel-Geral-DAC-rev1"
+            "https://pi.cetrel.com.br/PIVision/#/Displays/141016/Painel-Geral-DAC-rev1",
+            "https://pi.cetrel.com.br/PIVision/#/Displays/141025/Controle-po%C3%A7os-DAC"
         ];
 
-        // Obter o índice atual pela URL (?i=0, ?i=1, etc.)
-        const params = new URLSearchParams(window.location.search);
-        let i = parseInt(params.get("i")) || 0;
+        let currentIndex = 0;
+        let slideshowWindow = null;
 
-        // Garante índice válido
-        if (i >= urls.length) i = 0;
+        function openNext() {
+            const url = urls[currentIndex];
+            currentIndex = (currentIndex + 1) % urls.length;
 
-        // Próximo índice para o redirecionamento seguinte
-        const nextIndex = (i + 1) % urls.length;
+            // Abre uma janela com o mesmo nome (substitui a anterior)
+            slideshowWindow = window.open(url, "pi_slideshow");
+        }
 
-        // Redirecionar para a tela PI Vision atual depois de leve atraso
+        // Abre a primeira imediatamente
+        openNext();
+
+        // Troca de slide a cada 100 segundos
+        setInterval(openNext, 100000);
+
+        // Recarrega a página a cada 15 minutos (200000 ms)
         setTimeout(() => {
-            window.location.href = urls[i];
-        }, 100); // 100 ms para evitar bloqueio imediato
-
-        // Programar retorno à página index com o próximo índice
-        setTimeout(() => {
-            const indexUrl = `https://SEU_USUARIO.github.io/SEU_REPOSITORIO/?i=${nextIndex}`;
-            window.location.href = indexUrl;
-        }, 50000); // 100 segundos
+            location.reload();
+        }, 200000);
+    </script>
+</body>
+</html>
+        // Troca a cada 100 segundos
+        setInterval(openNext, 100000);
     </script>
 </body>
 </html>

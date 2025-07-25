@@ -25,6 +25,16 @@
         // Abre a primeira imediatamente
         openNext();
 
+        // Troca de slide a cada 100 segundos
+        setInterval(openNext, 100000);
+
+        // Recarrega a página a cada 15 minutos (900000 ms)
+        setTimeout(() => {
+            location.reload();
+        }, 900000);
+    </script>
+</body>
+</html>
         // Troca a cada 100 segundos
         setInterval(openNext, 100000);
     </script>

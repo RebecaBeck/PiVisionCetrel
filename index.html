@@ -7,8 +7,8 @@
 <body>
     <script>
         const urls = [
-            "https://pi.cetrel.com.br/PIVision/#/Displays/141025/Controle-po%C3%A7os-DAC",
-            "https://pi.cetrel.com.br/PIVision/#/Displays/141016/Painel-Geral-DAC-rev1"
+            "https://pi.cetrel.com.br/PIVision/#/Displays/141016/Painel-Geral-DAC-rev1",
+            "https://pi.cetrel.com.br/PIVision/#/Displays/141025/Controle-po%C3%A7os-DAC"
         ];
 
         let currentIndex = 0;
@@ -28,7 +28,7 @@
         // Troca de slide a cada 100 segundos
         setInterval(openNext, 100000);
 
-        // Recarrega a página a cada 15 minutos (900000 ms)
+        // Recarrega a página a cada 15 minutos (300000 ms)
         setTimeout(() => {
             location.reload();
         }, 900000);

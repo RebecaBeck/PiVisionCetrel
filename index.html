@@ -4,32 +4,29 @@
     <title>PI Vision Slideshow</title>
     <meta charset="UTF-8">
     <script>
-        // Lista de URLs do slideshow
         const urls = [
             "https://pi.cetrel.com.br/PIVision/#/Displays/141025/Controle-po%C3%A7os-DAC",
             "https://pi.cetrel.com.br/PIVision/#/Displays/141016/Painel-Geral-DAC-rev1"
         ];
 
-        // Obter índice atual do localStorage, ou começar do 0
-        let currentIndex = parseInt(localStorage.getItem("slideshowIndex")) || 0;
+        // Pega o índice da URL (ex: ?i=1)
+        const urlParams = new URLSearchParams(window.location.search);
+        let currentIndex = parseInt(urlParams.get("i")) || 0;
 
-        // Garantir que o índice esteja dentro dos limites
-        if (currentIndex >= urls.length) currentIndex = 0;
-
-        // Atualizar o índice para a próxima execução
-        const nextIndex = (currentIndex + 1) % urls.length;
-        localStorage.setItem("slideshowIndex", nextIndex.toString());
-
-        // Tempo de exibição antes de redirecionar (em milissegundos)
+        // Redireciona para a URL atual
         const tempoExibicao = 100000; // 100 segundos
 
-        // Aguarda e redireciona
         setTimeout(() => {
-            window.location.href = urls[currentIndex];
+            const nextIndex = (currentIndex + 1) % urls.length;
+            // Redireciona de volta para o index com o próximo índice
+            window.location.href = `https://SEU_USUARIO.github.io/SEU_REPOSITORIO/?i=${nextIndex}`;
         }, tempoExibicao);
+
+        // Redireciona imediatamente para a tela desejada
+        window.location.replace(urls[currentIndex]);
     </script>
 </head>
 <body>
-    <h1 style="text-align:center; margin-top:20%;">Carregando apresentação...</h1>
+    <h1 style="text-align:center; margin-top:20%;">Carregando...</h1>
 </body>
 </html>
